@@ -29,14 +29,14 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
-    this.password = await bcrypt.hash(this.password, 12);
+    this.password = bcrypt.hash(this.password, 12);
     next();
 })
 
-userSchema.method.comparePassword = async function (oldPass) {
-    return await bcrypt.compare(oldPass, this.password);
+userSchema.methods.comparePassword = async function (oldPass) {
+    return bcrypt.compare(oldPass, this.password);
 }
-userSchema.method.generateToken = async function () {
+userSchema.methods.generateToken = async function () {
     return jwt.sign({ id: this._id, email: this.email }, process.env.JWT_SECRET, {
         expiresIn: "3d",
     });

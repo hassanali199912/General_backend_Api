@@ -15,11 +15,11 @@ const {
 routes.post("/login", login);
 
 //Admin Crud On Users 
-routes.get("/user", getAllUser);
-routes.get("/user/:id", getOneUser);
-routes.post("/user", createUsers);
-routes.put("/user", updateUsers);
-routes.delete("/user/:id", deleteUser);
+routes.get("/", getAllUser);
+routes.get("/:id", getOneUser);
+routes.post("/", createUsers);
+routes.put("/:id", updateUsers);
+routes.delete("/:id", deleteUser);
 
 
 

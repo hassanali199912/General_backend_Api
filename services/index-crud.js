@@ -41,6 +41,10 @@ class BaseCRUD {
     }
 
     async filterBy(filter) {
-        return await this.model.find(filter)
+
+        return await this.model.find(filter);
     }
 }
+
+
+module.exports = BaseCRUD

@@ -10,8 +10,11 @@ const createUsers = async (req, res) => {
     const responseHandler = new ResponseHandler(res);
     const UserModule = new IndexCrud(User);
     try {
-        const isExist = UserModule.filter(req.body.email);
-        if (isExist) {
+        console.log(req.body);
+
+        const isExist = await UserModule.filterBy({ email: req.body.email });
+
+        if (isExist.length > 0) {
             return responseHandler.error("User already exists", 400);
 
         }
@@ -49,7 +52,7 @@ const getOneUser = async (req, res) => {
     const UserModule = new IndexCrud(User);
     try {
         const userID = req.params.id
-        const isExist = UserModule.getById(userID);
+        const isExist = await UserModule.getById(userID);
         if (!isExist) {
             return responseHandler.error("User Not Found", 404);
 
@@ -64,7 +67,7 @@ const getAllUser = async (req, res) => {
     const responseHandler = new ResponseHandler(res);
     const UserModule = new IndexCrud(User);
     try {
-        const isExist = UserModule.getAll();
+        const isExist = await UserModule.getAll();
         return responseHandler.success(isExist, "Users Feched Successfully", 201);
 
     } catch (error) {
@@ -98,19 +101,21 @@ const login = async (req, res) => {
     const UserModule = new IndexCrud(User);
     try {
         const { email, password } = req.body;
-        const user = await UserModule.filterBy({ email });
+        const user = await UserModule.filterBy({ email: email });
         if (!user) {
             return responseHandler.error("User not found", 404);
         }
         if (user.role === "CODEMODE") {
             return responseHandler.error("Unauthorized", 401);
         }
-        const isMatch = await user.comparePassword(password);
+
+        const userData = await UserModule.getById(user[0]._id);
+        const isMatch = await userData.comparePassword(password);
         if (!isMatch) {
             return responseHandler.error("Invalid credentials", 401);
         }
-        const token = await user.generateToken();
-        return responseHandler.success({ user, token }, "Login successful", 200);
+        const token = await userData.generateToken();
+        return responseHandler.success({ token }, "Login successful", 200);
     } catch (error) {
         return responseHandler.error(error.message, 500, error);
     }

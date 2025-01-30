@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { upload } = require("../utils/MulterImageUploader");
+//const { upload } = require("../utils/MulterImageUploader");
 
 // const authRoutes = require("./auth");
 /*======================= Admin Routes =================================== */
@@ -15,20 +15,6 @@ router.use("/users", users);
 /*======================= Users Routes =================================== */
 
 
-// /*======================= Products Routes =================================== */
-// const productsRoutes = require("./products");
-// router.use("/products", upload.array("images"),  productsRoutes);
-// /*======================= Products Routes =================================== */
-
-// /*======================= Payments Routes =================================== */
-// const paymentsRoutes = require("./payments");
-// router.use("/payment", paymentsRoutes);
-// /*======================= Payments Routes =================================== */
-
-// /*======================= User Routes =================================== */
-// const categoryRoutes = require("./caregory");
-// router.use("/category", categoryRoutes);
-// /*======================= User Routes =================================== */
 
 
 
