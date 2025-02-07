@@ -5,12 +5,12 @@ const router = express.Router();
 
 // const authRoutes = require("./auth");
 /*======================= Admin Routes =================================== */
-const admin = require("./admin/admin");
+const admin = require("./admin/index");
 router.use("/dashboard", admin);
 /*======================= Admin Routes =================================== */
 
 /*======================= Users Routes =================================== */
-const users = require("./users/users");
+const users = require("./users/index");
 router.use("/users", users);
 /*======================= Users Routes =================================== */
 

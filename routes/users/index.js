@@ -1,6 +1,5 @@
 const express = require("express");
 const routes = express.Router();
 
-routes.use("/users",require("./user-auth"));
-
+routes.use("/auth", require("../../main-routes/user"))
 module.exports = routes;
